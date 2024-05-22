@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForecastLibExam", "ForecastLibExam\ForecastLibExam.csproj", "{5EA3F39B-EF85-40E6-9501-69B8B9B27DDB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EA3F39B-EF85-40E6-9501-69B8B9B27DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EA3F39B-EF85-40E6-9501-69B8B9B27DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EA3F39B-EF85-40E6-9501-69B8B9B27DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EA3F39B-EF85-40E6-9501-69B8B9B27DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CD487FFF-9A29-41EB-B19B-CE7A0C8D343F}
+	EndGlobalSection
+EndGlobal

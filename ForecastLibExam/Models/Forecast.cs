@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public double? Temp { get; set; }
         public double? Humidity { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         public override string ToString()
         {

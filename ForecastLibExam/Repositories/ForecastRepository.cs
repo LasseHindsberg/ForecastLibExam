@@ -1,5 +1,5 @@
 ﻿using ForecastLibExam.Models;
-
+using Newtonsoft.Json; // You need to install the Newtonsoft.Json package from NuGet
 
 namespace ForecastLibExam.Repositories
 {

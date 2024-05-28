@@ -3,9 +3,9 @@
     public class Forecast
     {
         public int Id { get; set; }
-        public string SensorName { get; set; }
-        public float Temperature { get; set; }
-        public float Humidity { get; set; }
+        public string? SensorName { get; set; }
+        public float? Temperature { get; set; }
+        public float? Humidity { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
 public void validate()

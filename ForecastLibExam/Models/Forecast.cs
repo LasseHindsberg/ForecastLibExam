@@ -3,28 +3,20 @@
     public class Forecast
     {
         public int Id { get; set; }
-        public double? Temp { get; set; }
-        public double? Humidity { get; set; }
+        public string SensorName { get; set; }
+        public float Temperature { get; set; }
+        public float Humidity { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public override string ToString()
+public void validate()
         {
-            return $"id: {Id}, temp: {Temp}, humidity: {Humidity}, date: {Date}";
-        }
-
-        public void validate()
-        {
-            if (Temp == null)
+            if (Temperature == null)
             {
                 throw new Exception("temp is required");
             }
             if (Humidity == null)
             {
                 throw new Exception("humidity is required");
-            }
-            if (Date == DateTime.MinValue)
-            {
-                throw new InvalidOperationException("Date is required.");
             }
         }
     }

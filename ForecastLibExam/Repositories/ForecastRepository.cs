@@ -1,21 +1,29 @@
-﻿using ForecastLibExam.Models;
-using Newtonsoft.Json; // You need to install the Newtonsoft.Json package from NuGet
+﻿sing ForecastLibExam.Models;
+using Newtonsoft.Json; 
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ForecastLibExam.Repositories
 {
     public class ForecastRepository : IForecastRepository
     {
-        public int _nextId = 1;
-        public List<Forecast> _forecasts = new List<Forecast>();
+        private int _nextId = 1;
+        private List<Forecast> _forecasts = new List<Forecast>();
+        private UdpClient udpClient;
 
         public ForecastRepository()
         {
+            Task.Run(() => ListenForUdpBroadcasts());
         }
+
         public Forecast Add(Forecast forecast)
         {
             forecast.Id = _nextId++;
-            forecast.validate();
+            forecast.Validate();
             _forecasts.Add(forecast);
+            ManageForecastListSize();
             return forecast;
         }
 
@@ -24,13 +32,13 @@ namespace ForecastLibExam.Repositories
             return _forecasts;
         }
 
-        //a delete function that automatically removes the oldest entry when the list reaches 10 entries
+        // Delete function that automatically removes the oldest entry when the list reaches 10 entries
         public Forecast DeleteOldest()
         {
-            if (_forecasts.Count >= 10)
+            if (_forecasts.Count > 0)
             {
                 var oldest = _forecasts.OrderBy(f => f.Date).First();
-                _forecasts.RemoveAt(0);
+                _forecasts.Remove(oldest);
                 return oldest;
             }
             else
@@ -39,6 +47,39 @@ namespace ForecastLibExam.Repositories
             }
         }
 
-    }
+        private void ManageForecastListSize()
+        {
+            if (_forecasts.Count > 10)
+            {
+                DeleteOldest();
+            }
+        }
 
+        private async Task ListenForUdpBroadcasts()
+        {
+            udpClient = new UdpClient(5005);
+            IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 5005);
+
+            while (true)
+            {
+                try
+                {
+                    var result = await udpClient.ReceiveAsync();
+                    string receiveString = Encoding.ASCII.GetString(result.Buffer); // idk why, but it just works :)
+
+                    var forecast = JsonConvert.DeserializeObject<Forecast>(receiveString);
+
+                    if (forecast != null)
+                    {
+                        Add(forecast);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle exceptions
+                    Console.WriteLine($"Error receiving UDP broadcast: {ex.Message}");
+                }
+            }
+        }
+    }
 }
